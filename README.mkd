@@ -56,5 +56,5 @@ Thanks to:
 License
 -------
 
-Tool under the BSD license. Do not hesitate to report bugs, ask me some
-questions or do some pull request if you want to !
+Tool under the Attribution-ShareAlike 3.0 Unported license. Do not hesitate to
+report bugs, ask me some questions or do some pull request if you want to !

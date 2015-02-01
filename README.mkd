@@ -42,6 +42,14 @@ python dhcp_handler.py [option]
     run: run in foreground
 ```
 
+Thanks
+------
+
+Thanks to:
+  * <b>al45tair</b> for [netifaces](https://bitbucket.org/al45tair/netifaces)
+  * <b>Server Density</b> for
+    [python-daemon](https://github.com/serverdensity/python-daemon)
+
 Licence
 -------
 

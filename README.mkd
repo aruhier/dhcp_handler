@@ -1,0 +1,49 @@
+DHCP changes handler
+====================
+
+If you have a router on linux and your ISP only gives you a dynamic IP address,
+this script can help you to handle a dhcp reassignment by automatically
+some scripts when it detect it.
+
+Dependencies
+------------
+  * python 2.7 or 3.4 (it certainly works with prior versions, just not tested)
+  * netifaces python module
+
+Configuration
+-------------
+
+Copy the default configuration file `config.py.default` as `config.py`.
+<b>Please do not modify or remove `config.py.default` if you cloned this
+repository.  Always do your modifications in config.py.</b> Then modify
+`config.py` for your setup (documentation is inside).
+
+Usage
+-----
+
+Each 10 seconds (by default, but can be changed in config.py), the IP of each
+configured interface is checked and saved in a configured path. If it changed
+since the last time it was checked, the handler script associated to the
+interface will be called.
+
+For each interface, create a script handler in the handlers directory, named
+like the interface: `eth0` for the handler of the interface eth0, etc...
+You can write your handlers in bash or whatever you want, but it has to be
+executable. When handlers are called, the new IP is sent as parameter.
+
+Then, run the `dhcp_handler.py` script:
+
+```
+python dhcp_handler.py [option]
+[option]:
+    start: start in background
+    stop: stop the daemon
+    restart: restart the daemon
+    run: run in foreground
+```
+
+Licence
+-------
+
+Tool under the BSD licence. Do not hesitate to report bugs, ask me some
+questions or do some pull request if you want to !

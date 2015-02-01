@@ -1,0 +1,11 @@
+[Unit]
+Description=Handle IP changes
+After=ipset.service
+
+[Service]
+Type=simple
+ExecStart=/opt/dhcp_handler/dhcp_handler.py run
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -18,6 +18,9 @@ Copy the default configuration file `config.py.default` as `config.py`.
 repository.  Always do your modifications in config.py.</b> Then modify
 `config.py` for your setup (documentation is inside).
 
+The service file `dhcp_handler.service` for systemd can be used, just modify
+the script path in the ExecStart directive.
+
 Usage
 -----
 

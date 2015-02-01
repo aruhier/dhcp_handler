@@ -1,0 +1,14 @@
+#!/bin/python
+# Author: Anthony Ruhier
+#
+# Configuration for DHCP Handler
+#
+
+# Interfaces to watch
+IF = ("eth0",)
+
+# Refresh time, in seconds
+REFRESH_TIME = 10
+
+# Target dir to save IP
+SAVED_IP_PATH = "/var/lib/dhcp_handler"

@@ -5,6 +5,7 @@
 import logging
 import netifaces
 import os
+import subprocess
 import sys
 
 IF = ("eth0",)
@@ -16,9 +17,9 @@ def prepare_logger(logger):
     Set logger to a default level and add a steam handler
     """
     steam_handler = logging.StreamHandler()
-    steam_handler.setLevel(logging.INFO)
+    steam_handler.setLevel(logging.DEBUG)
     logger.addHandler(steam_handler)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
     return logger
 
 
@@ -26,6 +27,7 @@ def init_dir(path):
     """
     Create target dir, where will be saved the IP of each interface
     """
+    logger = logging.getLogger()
     if not os.path.isdir(OLD_IP_PATH):
         try:
             os.makedirs(OLD_IP_PATH)
@@ -39,6 +41,7 @@ def get_ip():
     """
     Get the 1st IPv4 associated to each interface in IF
     """
+    logger = logging.getLogger()
     ip_assoc = dict()
     for interf in IF:
         try:
@@ -57,13 +60,33 @@ def get_ip():
     return ip_assoc
 
 
+def launch_handler(interface, ip):
+    """
+    Launch associated handler
+    """
+    logger = logging.getLogger()
+    handler_path = os.path.join("handlers", interface + ".sh")
+    if not os.path.isfile(handler_path):
+        logger.info("No handler found for " + interface + ".")
+        return
+    try:
+        subprocess.call(["handlers/" + interface + ".sh", ip])
+    except Exception as e:
+        logger.error("Error when launching the handler " + interface + ".sh")
+        logger.error(e)
+
+
 init_dir(OLD_IP_PATH)
 logger = prepare_logger(logging.getLogger())
 ip_dict = get_ip()
 for interf, ip in ip_dict.items():
-    with open(os.path.join(OLD_IP_PATH, interf + "_ip"), "w+") as f:
-        old_ip = f.read()
+    with open(os.path.join(OLD_IP_PATH, interf + "_ip"), "r+") as f:
+        old_ip = f.readline().rstrip(os.linesep)
         if old_ip == ip:
             logger.debug(interf + " ip didn't change")
         else:
-            logger.debug(intef + " ip changed, launching handler")
+            logger.debug(interf + " ip changed, launching handler")
+            f.seek(0)
+            f.truncate()
+            f.write(ip + os.linesep)
+            launch_handler(interf, ip)

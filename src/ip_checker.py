@@ -40,12 +40,14 @@ class IP_Checker_Daemon(Daemon):
         """
         Launch associated handler
         """
-        handler_path = os.path.join("handlers", interface + ".sh")
+        handler_path = os.path.join(
+            sys.path[0], "handlers", interface + ".sh"
+        )
         if not os.path.isfile(handler_path):
             self.logger.info("No handler found for " + interface + ".")
             return
         try:
-            subprocess.call(["handlers/" + interface + ".sh", ip])
+            subprocess.call([handler_path, ip])
         except Exception as e:
             self.logger.error("Error when launching the handler " +
                 interface + ".sh")
@@ -63,12 +65,14 @@ class IP_Checker_Daemon(Daemon):
                 if old_ip == ip:
                     self.logger.debug(interf + " ip didn't change")
                 else:
-                    self.logger.debug(
-                        interf + " ip changed, launching handler")
+                    self.logger.info(
+                        interf + ": ip changed, launching handler")
                     f.seek(0)
                     f.truncate()
                     f.write(ip + os.linesep)
+                    f.close()
                     self.launch_handler(interf, ip)
+                    self.logger.info(interf + ": Done")
 
     def run(self):
         while True:

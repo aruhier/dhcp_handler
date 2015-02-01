@@ -13,9 +13,9 @@ def prepare_logger(logger):
     Set logger to a default level and add a steam handler
     """
     steam_handler = logging.StreamHandler()
-    steam_handler.setLevel(logging.DEBUG)
+    steam_handler.setLevel(logging.INFO)
     logger.addHandler(steam_handler)
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
     return logger
 
 
@@ -57,7 +57,7 @@ def init_dir(path):
 
 
 init_dir(SAVED_IP_PATH)
-checker_daemon = IP_Checker_Daemon("/run/ip_checker_daemon.pid")
+checker_daemon = IP_Checker_Daemon("/var/run/dhcp_handler.pid")
 
 if len(sys.argv) != 2:
     print_help()

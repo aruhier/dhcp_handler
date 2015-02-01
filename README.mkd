@@ -50,8 +50,8 @@ Thanks to:
   * <b>Server Density</b> for
     [python-daemon](https://github.com/serverdensity/python-daemon)
 
-Licence
+License
 -------
 
-Tool under the BSD licence. Do not hesitate to report bugs, ask me some
+Tool under the BSD license. Do not hesitate to report bugs, ask me some
 questions or do some pull request if you want to !

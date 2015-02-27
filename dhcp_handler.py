@@ -21,7 +21,7 @@ def prepare_logger(logger):
 
 logger = prepare_logger(logging.getLogger())
 try:
-    from config import IF, SAVED_IP_PATH
+    from config import SAVED_IP_PATH
 except ImportError:
     logger.critical(
         "The configuration file config.py doesn't exist. Please copy the "
@@ -52,7 +52,7 @@ def init_dir(path):
             os.makedirs(SAVED_IP_PATH)
         except FileExistsError:
             logger.error("Error creating " + SAVED_IP_PATH + ", file already "
-                    "exists. Please remove it.")
+                         "exists. Please remove it.")
             sys.exit(1)
 
 

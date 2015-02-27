@@ -5,7 +5,6 @@ import logging
 import netifaces
 import os
 import subprocess
-import sys
 import time
 from src.daemon import Daemon
 from config import IF, REFRESH_TIME, SAVED_IP_PATH
@@ -50,7 +49,7 @@ class IP_Checker_Daemon(Daemon):
             subprocess.call([handler_path, ip])
         except Exception as e:
             self.logger.error("Error when launching the handler " +
-                interface + ".sh")
+                              interface + ".sh")
             self.logger.error(e)
 
     def check_ip_changes(self):
